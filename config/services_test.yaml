@@ -1,0 +1,3 @@
+services:
+    App\Repository\QuoteRepository:
+        public: true

@@ -1,0 +1,34 @@
+#!/bin/bash
+
+#means symfony_console
+sc() {
+      docker exec php symfony console "$1"
+}
+
+composer() {
+      docker exec php composer "$1"
+}
+
+analyseCodeAndTests() {
+      docker exec php vendor/bin/phpstan analyse  src/  tests/
+
+}
+
+analyseCode() {
+      docker exec php vendor/bin/phpstan analyse  src/ --level 8
+}
+
+unitTests() {
+      docker exec php php bin/phpunit
+}
+
+if declare -f "$1" > /dev/null
+then
+  # call arguments verbatim
+  "$@"
+else
+  # Show a helpful error
+  echo "'$1' is not a known function name" >&2
+  exit 1
+fi
+
